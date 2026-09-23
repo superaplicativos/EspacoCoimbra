@@ -1,2 +1,0 @@
-# EspacoCoimbra
-Espaço Coimbra
