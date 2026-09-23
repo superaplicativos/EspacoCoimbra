@@ -170,20 +170,12 @@ form input.display-none{display:none!important}
     position: relative;
 }
 .coimbra-slider .swiper-slide {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    opacity: 0 !important;
-    transition: opacity 1.2s ease-in-out !important;
+    position: relative;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
-.coimbra-slider .swiper-slide-active,
-.coimbra-slider .swiper-slide.swiper-slide-visible {
-    opacity: 1 !important;
-    z-index: 2 !important;
-}
+
 .coimbra-slider .swiper-slide img {
     width: 100%;
     height: 100%;
@@ -323,17 +315,7 @@ div.coimbra-form-notice,
 }
 </style>
 
-<!-- Force first slide visible -->
-<style>
-.coimbra-slider .swiper-slide:first-child {
-    opacity: 1 !important;
-    z-index: 2 !important;
-}
-.coimbra-slider .swiper-slide-active {
-    opacity: 1 !important;
-    z-index: 2 !important;
-}
-</style>
+
 
 <!-- RevSlider overlays CSS -->
 <style>
@@ -901,8 +883,8 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
                 disableOnInteraction: false,
             },
             speed: 1000,
-            effect: 'fade',
-            fadeEffect: { crossFade: true },
+            effect: 'slide',
+            // fade removido (bug de 2 slides visiveis)
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
@@ -945,8 +927,8 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
                 pauseOnMouseEnter: true,
             },
             speed: 1200,
-            effect: 'fade',
-            fadeEffect: { crossFade: true },
+            effect: 'slide',
+            // fade removido (bug de 2 slides visiveis)
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
