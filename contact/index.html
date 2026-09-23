@@ -432,135 +432,231 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
   gtag('config', 'AW-16631747394');
 </script>
 
-<!-- Form handler: mailto + WhatsApp fallback -->
+
+
+
+<!-- Web3Forms handler -->
 <style>
 .coimbra-form-notice {
-  background: #fff3cd;
-  border: 1px solid #ffeaa7;
-  border-radius: 6px;
-  padding: 12px 16px;
-  margin: 15px 0;
+  background: linear-gradient(135deg, #e7f4ff 0%, #f0f7ff 100%);
+  border: 1px solid #b8d8f5;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 18px 0;
   font-size: 14px;
-  color: #856404;
+  color: #1e5a96;
   text-align: center;
+  line-height: 1.5;
 }
-.coimbra-form-notice strong { color: #533f00; }
-.coimbra-form-success {
+.coimbra-form-notice strong { color: #0d3b6e; }
+.coimbra-form-status {
+  border-radius: 8px;
+  padding: 18px;
+  margin: 18px 0;
+  text-align: center;
+  display: none;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.coimbra-form-status.show { display: block; }
+.coimbra-form-status.loading {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  color: #8a6d3b;
+}
+.coimbra-form-status.success {
   background: #d4edda;
   border: 1px solid #c3e6cb;
-  border-radius: 6px;
-  padding: 16px;
-  margin: 15px 0;
-  text-align: center;
   color: #155724;
-  display: none;
 }
-.coimbra-form-success.show { display: block; }
-.coimbra-form-success h3 { color: #155724; margin-bottom: 10px; }
-.coimbra-form-success a.btn-whatsapp {
+.coimbra-form-status.error {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+.coimbra-form-status h3 { margin: 0 0 8px; font-size: 18px; }
+.coimbra-form-status a.btn-whatsapp {
   display: inline-block;
   background: #25D366;
   color: white !important;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: 6px;
   text-decoration: none;
-  margin-top: 10px;
+  margin-top: 12px;
+  margin-right: 8px;
   font-weight: bold;
 }
-.coimbra-form-success a.btn-whatsapp:hover { background: #128C7E; }
-.coimbra-form-success a.btn-email {
+.coimbra-form-status a.btn-whatsapp:hover { background: #128C7E; }
+.coimbra-form-status a.btn-retry {
   display: inline-block;
-  background: #007bff;
+  background: #6c757d;
   color: white !important;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: 6px;
   text-decoration: none;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 12px;
   font-weight: bold;
+  cursor: pointer;
 }
-.coimbra-form-success a.btn-email:hover { background: #0056b3; }
+.coimbra-form-status a.btn-retry:hover { background: #5a6268; }
+.coimbra-form-submit-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff80;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: coimbra-spin 0.8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+@keyframes coimbra-spin { to { transform: rotate(360deg); } }
 </style>
 <script>
 (function() {
+  var ACCESS_KEY = "dd6c97cc-2e68-427e-863d-7c6c22bad39f";
+  var EMAIL_TO = "comercial@espacocoimbra.com.br";
+  var WHATSAPP_NUMBER = "5511917792200";
+
   function setupCoimbraForms() {
     var forms = document.querySelectorAll('form.wpcf7-form, form.coimbra-form');
     forms.forEach(function(form) {
       if (form.dataset.coimbraSetup === 'true') return;
       form.dataset.coimbraSetup = 'true';
 
+      // Action não usada (interceptamos via JS), mas mantém pra acessibilidade
       form.method = 'POST';
-      form.enctype = 'application/x-www-form-urlencoded';
-      form.action = 'mailto:comercial@espacocoimbra.com.br?cc=contato@espacocoimbra.com.br&subject=' + encodeURIComponent('Novo contato - Espaco Coimbra (site)');
+      form.action = '#';
 
+      // Notice antes do form
       var notice = document.createElement('div');
       notice.className = 'coimbra-form-notice';
-      notice.innerHTML = '<strong>\u2139\uFE0F Ao clicar em Enviar:</strong> seu app de email (Gmail, Outlook, etc) vai abrir com a mensagem ja preenchida para <strong>comercial@espacocoimbra.com.br</strong>. Basta confirmar o envio.';
+      notice.innerHTML = '<strong>Preencha o formulario</strong> e clique em Enviar. Sua mensagem sera enviada direto para <strong>' + EMAIL_TO + '</strong>.';
       form.parentNode.insertBefore(notice, form);
 
-      var success = document.createElement('div');
-      success.className = 'coimbra-form-success';
-      success.id = 'coimbra-success-' + Math.random().toString(36).substring(2, 8);
-      form.parentNode.insertBefore(success, form.nextSibling);
+      // Status div depois do form
+      var status = document.createElement('div');
+      status.className = 'coimbra-form-status';
+      status.id = 'coimbra-status-' + Math.random().toString(36).substring(2, 8);
+      form.parentNode.insertBefore(status, form.nextSibling);
 
+      // Intercepta submit
       form.addEventListener('submit', function(e) {
-        var formData = new FormData(form);
-        var lines = [];
-        var whatsappLines = [];
-        var nome = '';
-        var telefone = '';
-
-        for (var pair of formData.entries()) {
-          var key = pair[0];
-          var val = pair[1];
-          if (key.startsWith('_wpcf7') || key.startsWith('_wp_http') || key === '_subject' || key === '_cc' || key === '_template') continue;
-          if (!val) continue;
-
-          var labelMap = {
-            'nome': 'Nome',
-            'email': 'Email',
-            'telefone': 'Telefone',
-            'numero_de_convidados': 'Numero de Convidados',
-            'expectativa_investimento': 'Expectativa inicial de investimento',
-            'tipo_de_evento': 'Tipo de Evento',
-            'data_do_evento': 'Data do Evento',
-            'interesso_espaco': 'Me interesso pelo Espaco',
-            'mensagem': 'Mensagem'
-          };
-          var label = labelMap[key] || key.replace(/_/g, ' ');
-          lines.push(label + ': ' + val);
-          whatsappLines.push('*' + label + ':* ' + val);
-          if (key === 'nome') nome = val;
-          if (key === 'telefone') telefone = val;
-        }
-
-        var body = 'Ola, Equipe Espaco Coimbra!\n\n';
-        body += 'Recebi um novo contato pelo site:\n\n';
-        body += lines.join('\n');
-        body += '\n\n---\nEnviado pelo site https://superaplicativos.github.io/EspacoCoimbra/';
-
-        var mailtoUrl = 'mailto:comercial@espacocoimbra.com.br?cc=contato@espacocoimbra.com.br&subject=' + encodeURIComponent('Novo contato - Espaco Coimbra (site)') + '&body=' + encodeURIComponent(body);
-        form.action = mailtoUrl;
-
-        var whatsappMsg = 'Ola, Equipe Espaco Coimbra! Sou ' + (nome || 'um visitante') + '.\n\n';
-        whatsappMsg += 'Recebi um novo contato pelo site:\n\n';
-        whatsappMsg += whatsappLines.join('\n');
-        var whatsappUrl = 'https://wa.me/5511917792200?text=' + encodeURIComponent(whatsappMsg);
-
-        var successHtml = '<h3>\u2713 Quase la! Escolha como enviar:</h3>';
-        successHtml += '<p>Sua mensagem esta pronta. Voce pode enviar por:</p>';
-        successHtml += '<a href="' + whatsappUrl + '" target="_blank" class="btn-whatsapp">\uD83D\uDCAC Enviar via WhatsApp</a>';
-        successHtml += '<a href="' + mailtoUrl + '" class="btn-email">\uD83D\uDCE7 Enviar por Email</a>';
-        successHtml += '<p style="margin-top:15px;font-size:12px;color:#666;">Ou ligue: <a href="tel:+5511917792200" style="color:#007bff;">+55 (11) 91779-2200</a></p>';
-        success.innerHTML = successHtml;
-        success.classList.add('show');
-
-        success.scrollIntoView({behavior: 'smooth', block: 'center'});
-
         e.preventDefault();
+        submitForm(form, status);
         return false;
       });
     });
+  }
+
+  function submitForm(form, status) {
+    var formData = new FormData(form);
+    var data = {
+      access_key: ACCESS_KEY,
+      subject: 'Novo contato - Espaco Coimbra (site)',
+      from_name: 'Site Espaco Coimbra'
+    };
+    var nome = '';
+    var whatsappLines = [];
+
+    for (var pair of formData.entries()) {
+      var key = pair[0];
+      var val = pair[1];
+      if (key.startsWith('_wpcf7') || key.startsWith('_wp_http') || key === '_subject' || key === '_cc' || key === '_template') continue;
+      if (!val) continue;
+
+      var labelMap = {
+        'nome': 'Nome',
+        'email': 'Email',
+        'telefone': 'Telefone',
+        'numero_de_convidados': 'Numero de Convidados',
+        'expectativa_investimento': 'Expectativa inicial de investimento',
+        'tipo_de_evento': 'Tipo de Evento',
+        'data_do_evento': 'Data do Evento',
+        'interesso_espaco': 'Me interesso pelo Espaco',
+        'mensagem': 'Mensagem'
+      };
+      var label = labelMap[key] || key.replace(/_/g, ' ');
+      data[label] = val;
+      whatsappLines.push('*' + label + ':* ' + val);
+      if (key === 'nome') nome = val;
+    }
+
+    // Cópia para contato@
+    data.cc = 'contato@espacocoimbra.com.br';
+
+    // Mostra loading
+    status.className = 'coimbra-form-status loading show';
+    status.innerHTML = '<span class="coimbra-form-submit-spinner"></span>Enviando sua mensagem...';
+
+    // Scroll para status
+    status.scrollIntoView({behavior: 'smooth', block: 'center'});
+
+    // Desabilita botão de submit
+    var submitBtn = form.querySelector('input[type="submit"], button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.dataset.originalValue = submitBtn.value || submitBtn.textContent;
+      if (submitBtn.tagName === 'INPUT') {
+        submitBtn.value = 'Enviando...';
+      } else {
+        submitBtn.textContent = 'Enviando...';
+      }
+    }
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(result) {
+      if (result.success) {
+        // Sucesso!
+        status.className = 'coimbra-form-status success show';
+        var html = '<h3>Mensagem enviada com sucesso!</h3>';
+        html += '<p>Recebemos sua mensagem e entraremos em contato em breve.</p>';
+        html += '<p style="margin-top:8px;font-size:13px;color:#5a7a8c;">Ou se preferir, fale agora pelo WhatsApp:</p>';
+        var whatsappMsg = 'Ola! Sou ' + (nome || 'um visitante') + '. Acabei de enviar um formulario pelo site.\n\n' + whatsappLines.join('\n');
+        var whatsappUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(whatsappMsg);
+        html += '<a href="' + whatsappUrl + '" target="_blank" class="btn-whatsapp">Falar no WhatsApp</a>';
+        status.innerHTML = html;
+
+        // Limpa o form
+        form.reset();
+      } else {
+        showError(status, result.message || 'Erro desconhecido', data, whatsappLines, nome);
+      }
+    })
+    .catch(function(error) {
+      showError(status, 'Falha de conexao: ' + error.message, data, whatsappLines, nome);
+    })
+    .finally(function() {
+      // Reabilita botão
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        if (submitBtn.tagName === 'INPUT') {
+          submitBtn.value = submitBtn.dataset.originalValue;
+        } else {
+          submitBtn.textContent = submitBtn.dataset.originalValue;
+        }
+      }
+    });
+  }
+
+  function showError(status, msg, data, whatsappLines, nome) {
+    status.className = 'coimbra-form-status error show';
+    var html = '<h3>Nao foi possivel enviar automaticamente</h3>';
+    html += '<p>' + msg + '</p>';
+    html += '<p style="margin-top:10px;">Voce pode enviar diretamente por WhatsApp:</p>';
+    var whatsappMsg = 'Ola! Sou ' + (nome || 'um visitante') + '. Tentativa de contato pelo site:\n\n' + whatsappLines.join('\n');
+    var whatsappUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(whatsappMsg);
+    html += '<a href="' + whatsappUrl + '" target="_blank" class="btn-whatsapp">Enviar via WhatsApp</a>';
+    html += '<a href="#" class="btn-retry" onclick="this.closest(\'.coimbra-form-status\').classList.remove(\'show\'); return false;">Tentar novamente</a>';
+    status.innerHTML = html;
   }
 
   if (document.readyState === 'loading') {
