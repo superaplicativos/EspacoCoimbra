@@ -306,6 +306,34 @@ form input.display-none{display:none!important}
 <style>
 .coimbra-form-notice { display: none !important; }
 </style>
+
+<!-- Hide form notice v2 -->
+<style>
+.coimbra-form-notice,
+.coimbra-form-notice.show,
+div.coimbra-form-notice,
+.coimbra-form-status.loading {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+}
+</style>
+
+<!-- Force first slide visible -->
+<style>
+.coimbra-slider .swiper-slide:first-child {
+    opacity: 1 !important;
+    z-index: 2 !important;
+}
+.coimbra-slider .swiper-slide-active {
+    opacity: 1 !important;
+    z-index: 2 !important;
+}
+</style>
 </head>
 
 <body class="wp-singular page-template-default page page-id-132 wp-theme-betheme woocommerce-block-theme-has-button-styles template-slider  color-custom content-brightness-light input-brightness-light style-default button-animation-slide button-animation-slide-right layout-full-width no-content-padding header-classic sticky-header sticky-tb-color ab-hide menu-link-color menuo-no-borders subheader-both-center footer-copy-center responsive-overflow-x-mobile mobile-tb-center mobile-side-slide mobile-mini-mr-ll mobile-header-mini mobile-icon-user-ss mobile-icon-wishlist-ss mobile-icon-search-ss mobile-icon-wpml-ss mobile-icon-action-ss be-page-132 be-reg-275">
@@ -784,6 +812,8 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
         }
         new Swiper('#rustico-slider', {
             loop: true,
+            initialSlide: 0,
+            watchSlidesProgress: true,
             autoplay: {
                 delay: 5000,
                 disableOnInteraction: false,
@@ -824,8 +854,11 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
         }
         new Swiper('#rustico-slider', {
             loop: true,
+            initialSlide: 0,
+            watchSlidesProgress: true,
             autoplay: {
                 delay: 6000,
+                pauseOnMouseEnter: true,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
             },
@@ -945,10 +978,7 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
       form.action = '#';
 
       // Notice antes do form
-      var notice = document.createElement('div');
-      notice.className = 'coimbra-form-notice';
-      notice.innerHTML = '<strong>Preencha o formulario</strong> e clique em Enviar. Sua mensagem sera enviada direto para <strong>' + EMAIL_TO + '</strong>.';
-      form.parentNode.insertBefore(notice, form);
+      // notice removido (display:none via CSS)
 
       // Status div depois do form
       var status = document.createElement('div');
