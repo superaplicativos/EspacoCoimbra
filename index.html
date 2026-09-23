@@ -137,93 +137,7 @@ form input.display-none{display:none!important}
 
 <link rel='stylesheet' id='mfn-post-local-styles-641790195606-css' href='/EspacoCoimbra/wp-content/uploads/betheme/css/post-64.css?ver=1790195606' media='all' />
 
-<!-- Swiper CSS replacement for RevSlider -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-<style>
-.coimbra-slider {
-    width: 100%;
-    height: 900px;
-    max-height: 90vh;
-    position: relative;
-    overflow: hidden;
-    background: #000;
-}
-.coimbra-slider .swiper-slide {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.coimbra-slider .swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.coimbra-slider .swiper-slide-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #fff;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-    z-index: 2;
-    padding: 0 20px;
-    max-width: 80%;
-}
-.coimbra-slider .swiper-slide-title {
-    font-size: 48px;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 16px;
-    font-family: 'Poppins', sans-serif;
-}
-.coimbra-slider .swiper-slide-subtitle {
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 1.4;
-    font-family: 'Poppins', sans-serif;
-    opacity: 0.95;
-}
-.coimbra-slider .swiper-pagination-bullet {
-    background: #fff;
-    opacity: 0.6;
-    width: 12px;
-    height: 12px;
-}
-.coimbra-slider .swiper-pagination-bullet-active {
-    opacity: 1;
-    background: #fff;
-}
-.coimbra-slider .swiper-button-next,
-.coimbra-slider .swiper-button-prev {
-    color: #fff;
-    background: rgba(0,0,0,0.3);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    backdrop-filter: blur(4px);
-}
-.coimbra-slider .swiper-button-next:after,
-.coimbra-slider .swiper-button-prev:after {
-    font-size: 20px;
-    font-weight: bold;
-}
-@media (max-width: 768px) {
-    .coimbra-slider {
-        height: 70vh;
-    }
-    .coimbra-slider .swiper-slide-title {
-        font-size: 28px;
-    }
-    .coimbra-slider .swiper-slide-subtitle {
-        font-size: 16px;
-    }
-}
-</style>
+
 
 <!-- 2. Crie um formulário novo -->
 <!-- 3. Confirme o email comercial@espacocoimbra.com.br -->
@@ -231,6 +145,191 @@ form input.display-none{display:none!important}
 <!-- 5. Substitua YOUR_FORMSPREE_ID_HERE em todos os HTMLs -->
 <!-- 6. Faça commit e push -->
 
+
+<!-- Swiper CSS v2 (fix fade) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+/* Container principal */
+.coimbra-slider {
+    width: 100%;
+    height: 900px;
+    max-height: 90vh;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    display: block;
+}
+/* Wrapper Swiper */
+.coimbra-slider .swiper-wrapper {
+    height: 100%;
+}
+/* CRÍTICO: slides com position absolute para fade funcionar */
+.coimbra-slider .swiper-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+/* Slide ativa */
+.coimbra-slider .swiper-slide-active,
+.coimbra-slider .swiper-slide-visible {
+    opacity: 1;
+    z-index: 1;
+}
+/* Para o modo slide (sem fade) */
+.coimbra-slider.swiper-fade .swiper-slide {
+    opacity: 0;
+}
+.coimbra-slider.swiper-fade .swiper-slide-active {
+    opacity: 1;
+}
+/* Imagem cobre tudo */
+.coimbra-slider .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    object-position: center;
+}
+/* Overlay escura pra texto destacar */
+.coimbra-slider .swiper-slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+/* Conteudo sobreposto - centro vertical, alinhado a esquerda */
+.coimbra-slider .swiper-slide-content {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    text-align: left;
+    color: #fff;
+    z-index: 3;
+    padding: 0 20px;
+    max-width: 70%;
+}
+.coimbra-slider .swiper-slide-title {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 20px 0;
+    font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+    letter-spacing: -0.5px;
+}
+.coimbra-slider .swiper-slide-subtitle {
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.4;
+    font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    opacity: 0.95;
+    margin: 0;
+}
+/* Paginacao */
+.coimbra-slider .swiper-pagination {
+    bottom: 30px !important;
+    z-index: 10;
+}
+.coimbra-slider .swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.5;
+    width: 12px;
+    height: 12px;
+    margin: 0 6px !important;
+    transition: all 0.3s;
+}
+.coimbra-slider .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #fff;
+    width: 36px;
+    border-radius: 6px;
+}
+/* Navegacao */
+.coimbra-slider .swiper-button-next,
+.coimbra-slider .swiper-button-prev {
+    color: #fff;
+    background: rgba(0,0,0,0.4);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 10;
+    transition: background 0.3s;
+}
+.coimbra-slider .swiper-button-next:hover,
+.coimbra-slider .swiper-button-prev:hover {
+    background: rgba(0,0,0,0.7);
+}
+.coimbra-slider .swiper-button-next::after,
+.coimbra-slider .swiper-button-prev::after {
+    font-size: 22px;
+    font-weight: bold;
+}
+/* Responsivo */
+@media (max-width: 1024px) {
+    .coimbra-slider .swiper-slide-title {
+        font-size: 42px;
+    }
+    .coimbra-slider .swiper-slide-subtitle {
+        font-size: 20px;
+    }
+}
+@media (max-width: 768px) {
+    .coimbra-slider {
+        height: 70vh;
+        min-height: 350px;
+    }
+    .coimbra-slider .swiper-slide-content {
+        left: 5%;
+        max-width: 90%;
+    }
+    .coimbra-slider .swiper-slide-title {
+        font-size: 32px;
+        margin-bottom: 12px;
+    }
+    .coimbra-slider .swiper-slide-subtitle {
+        font-size: 16px;
+    }
+    .coimbra-slider .swiper-button-next,
+    .coimbra-slider .swiper-button-prev {
+        width: 44px;
+        height: 44px;
+    }
+    .coimbra-slider .swiper-button-next::after,
+    .coimbra-slider .swiper-button-prev::after {
+        font-size: 16px;
+    }
+}
+@media (max-width: 480px) {
+    .coimbra-slider .swiper-slide-title {
+        font-size: 26px;
+    }
+    .coimbra-slider .swiper-slide-subtitle {
+        font-size: 14px;
+    }
+    .coimbra-slider .swiper-button-next,
+    .coimbra-slider .swiper-button-prev {
+        display: none;
+    }
+}
+</style>
 </head>
 
 <body class="home wp-singular page-template-default page page-id-64 wp-theme-betheme woocommerce-block-theme-has-button-styles template-slider  color-custom content-brightness-light input-brightness-light style-default button-animation-slide button-animation-slide-right layout-full-width no-content-padding header-classic sticky-header sticky-tb-color ab-hide menu-link-color menuo-no-borders subheader-both-center footer-copy-center responsive-overflow-x-mobile mobile-tb-center mobile-side-slide mobile-mini-mr-ll mobile-header-mini mobile-icon-user-ss mobile-icon-wishlist-ss mobile-icon-search-ss mobile-icon-wpml-ss mobile-icon-action-ss be-page-64 be-reg-275">
@@ -304,9 +403,26 @@ form input.display-none{display:none!important}
 <div class="swiper coimbra-slider" id="home-slider">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <img src="/EspacoCoimbra/wp-content/uploads/2024/08/DC1_3478.jpg" alt="" loading="eager">
+            <img src="/EspacoCoimbra/wp-content/uploads/2024/08/DC1_3478.jpg" alt="" loading="eager" decoding="async">
             <div class="swiper-slide-content"><div class="swiper-slide-title">O melhor da festa é esperar por ela!</div><div class="swiper-slide-subtitle">2 opções de espaço para realizar sonhos!</div></div>
         </div>
+        <div class="swiper-slide">
+            <img src="/EspacoCoimbra/wp-content/uploads/2024/08/WhatsApp-Image-2024-07-30-at-13.47.56.jpeg" alt="" loading="eager" decoding="async">
+            <div class="swiper-slide-content"><div class="swiper-slide-title">Gastronomia Conceituada</div></div>
+        </div>
+        <div class="swiper-slide">
+            <img src="/EspacoCoimbra/wp-content/uploads/2024/08/20230506_Casamento_Gabirela_e_Jonatas_2897-1.jpg" alt="" loading="eager" decoding="async">
+            <div class="swiper-slide-content"><div class="swiper-slide-title">Experiência e Credibilidade</div></div>
+        </div>
+        <div class="swiper-slide">
+            <img src="/EspacoCoimbra/wp-content/uploads/2024/08/RafaOrios-229.jpg" alt="" loading="eager" decoding="async">
+            <div class="swiper-slide-content"><div class="swiper-slide-title">Experiência e Credibilidade</div><div class="swiper-slide-subtitle">para dar todo suporte que um grande evento exige</div></div>
+        </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+</div>
         <div class="swiper-slide">
             <img src="/EspacoCoimbra/wp-content/uploads/2024/08/WhatsApp-Image-2024-07-30-at-13.47.56.jpeg" alt="" loading="eager">
             <div class="swiper-slide-content"><div class="swiper-slide-title">Gastronomia Conceituada</div></div>
@@ -715,8 +831,7 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
   gtag('config', 'AW-16631747394');
 </script>
 
-<!-- Swiper JS init -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <script>
 (function() {
     function initSwiper_home_slider() {
@@ -986,5 +1101,45 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 })();
 </script>
 
+
+<!-- Swiper JS + init -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+(function() {
+    function initSwiper_home_slider() {
+        if (typeof Swiper === 'undefined') {
+            setTimeout(initSwiper_home_slider, 50);
+            return;
+        }
+        new Swiper('#home-slider', {
+            loop: true,
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            speed: 1200,
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            // Garante que slides se sobrepõem
+            allowTouchMove: true,
+            grabCursor: true,
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSwiper_home_slider);
+    } else {
+        initSwiper_home_slider();
+    }
+})();
+</script>
 </body>
 </html>
