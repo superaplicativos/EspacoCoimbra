@@ -216,7 +216,7 @@ form input.display-none{display:none!important}
 }
 .coimbra-slider .swiper-slide-title {
     font-family: 'Allura', 'Poppins', cursive;
-    font-size: 68px;
+    font-size: 110px;
     font-weight: 400;
     line-height: 1.1;
     margin: 0 0 18px 0;
@@ -226,8 +226,8 @@ form input.display-none{display:none!important}
 }
 .coimbra-slider .swiper-slide-subtitle {
     font-family: 'Poppins', sans-serif;
-    font-size: 24px;
-    font-weight: 300;
+    font-size: 28px;
+    font-weight: 600;
     line-height: 1.4;
     color: #fff;
     text-shadow: 0 2px 8px rgba(0,0,0,0.6);
@@ -281,12 +281,12 @@ form input.display-none{display:none!important}
     height: 36px !important;
 }
 @media (max-width: 1024px) {
-    .coimbra-slider .swiper-slide-title { font-size: 52px; }
+    .coimbra-slider .swiper-slide-title { font-size: 80px; }
     .coimbra-slider .swiper-slide-subtitle { font-size: 20px; }
 }
 @media (max-width: 768px) {
     .coimbra-slider { height: 70vh; min-height: 350px; }
-    .coimbra-slider .swiper-slide-title { font-size: 38px; }
+    .coimbra-slider .swiper-slide-title { font-size: 56px; }
     .coimbra-slider .swiper-slide-subtitle { font-size: 16px; }
     .coimbra-slider .swiper-button-next,
     .coimbra-slider .swiper-button-prev {
@@ -295,7 +295,7 @@ form input.display-none{display:none!important}
     }
 }
 @media (max-width: 480px) {
-    .coimbra-slider .swiper-slide-title { font-size: 30px; }
+    .coimbra-slider .swiper-slide-title { font-size: 44px; }
     .coimbra-slider .swiper-slide-subtitle { font-size: 14px; }
     .coimbra-slider .swiper-button-next,
     .coimbra-slider .swiper-button-prev { display: none; }
@@ -332,6 +332,58 @@ div.coimbra-form-notice,
 .coimbra-slider .swiper-slide-active {
     opacity: 1 !important;
     z-index: 2 !important;
+}
+</style>
+
+<!-- RevSlider overlays CSS -->
+<style>
+.coimbra-slider-social {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 10;
+    display: flex;
+    gap: 18px;
+}
+.coimbra-slider-social a {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #b2b2b2;
+    text-decoration: none;
+    letter-spacing: 3px;
+    transition: color 0.3s;
+}
+.coimbra-slider-social a:hover {
+    color: #fff;
+}
+.coimbra-slider-scroll {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+.coimbra-slider-scroll a {
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    display: inline-block;
+    animation: coimbra-bounce 2s infinite;
+}
+.coimbra-slider-scroll a:hover {
+    opacity: 1;
+}
+@keyframes coimbra-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+@media (max-width: 768px) {
+    .coimbra-slider-social { bottom: 20px; left: 20px; gap: 12px; }
+    .coimbra-slider-social a { font-size: 10px; }
+    .coimbra-slider-scroll { display: none; }
 }
 </style>
 </head>
@@ -424,6 +476,15 @@ div.coimbra-form-notice,
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-pagination"></div>
+</div>
+<!-- RevSlider overlays: IN/FB/TW + scroll arrow -->
+<div class="coimbra-slider-social" aria-hidden="true">
+  <a href="#" onclick="return false">IN</a>
+  <a href="#" onclick="return false">FB</a>
+  <a href="#" onclick="return false">TW</a>
+</div>
+<div class="coimbra-slider-scroll" aria-hidden="true">
+  <a href="#Content" onclick="return false">&darr;</a>
 </div>
 </div>
 </div></header>
