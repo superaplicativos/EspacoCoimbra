@@ -146,10 +146,12 @@ form input.display-none{display:none!important}
 <!-- 6. Faça commit e push -->
 
 
-<!-- Swiper CSS v2 (fix fade) -->
+
+
+<!-- Swiper CSS - fiel ao RevSlider original -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <style>
-/* Container principal */
+/* Container - igual ao RevSlider: 900px, full-width */
 .coimbra-slider {
     width: 100%;
     height: 900px;
@@ -160,11 +162,10 @@ form input.display-none{display:none!important}
     background: #000;
     display: block;
 }
-/* Wrapper Swiper */
 .coimbra-slider .swiper-wrapper {
     height: 100%;
 }
-/* CRÍTICO: slides com position absolute para fade funcionar */
+/* CRÍTICO: slides com position absolute para fade */
 .coimbra-slider .swiper-slide {
     position: absolute;
     top: 0;
@@ -172,19 +173,13 @@ form input.display-none{display:none!important}
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: opacity 1.2s ease-in-out;
     overflow: hidden;
 }
-/* Slide ativa */
-.coimbra-slider .swiper-slide-active,
-.coimbra-slider .swiper-slide-visible {
+.coimbra-slider .swiper-slide-active {
     opacity: 1;
-    z-index: 1;
+    z-index: 2;
 }
-/* Para o modo slide (sem fade) */
 .coimbra-slider.swiper-fade .swiper-slide {
     opacity: 0;
 }
@@ -199,7 +194,7 @@ form input.display-none{display:none!important}
     display: block;
     object-position: center;
 }
-/* Overlay escura pra texto destacar */
+/* Overlay sutil escura (igual ao original) */
 .coimbra-slider .swiper-slide::after {
     content: '';
     position: absolute;
@@ -207,85 +202,98 @@ form input.display-none{display:none!important}
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+    background: rgba(0,0,0,0.35);
     z-index: 1;
     pointer-events: none;
 }
-/* Conteudo sobreposto - centro vertical, alinhado a esquerda */
+/* Conteudo CENTRALIZADO (igual ao original) */
 .coimbra-slider .swiper-slide-content {
     position: absolute;
     top: 50%;
-    left: 10%;
-    transform: translateY(-50%);
-    text-align: left;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
     color: #fff;
     z-index: 3;
-    padding: 0 20px;
-    max-width: 70%;
+    padding: 0 30px;
+    max-width: 90%;
+    width: 100%;
 }
+/* Titulo CURSIVA dourada (igual ao original) */
 .coimbra-slider .swiper-slide-title {
-    font-size: 56px;
-    font-weight: 700;
-    line-height: 1.15;
-    margin: 0 0 20px 0;
-    font-family: 'Poppins', 'Helvetica Neue', sans-serif;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.7);
-    letter-spacing: -0.5px;
-}
-.coimbra-slider .swiper-slide-subtitle {
-    font-size: 26px;
+    font-family: 'Allura', 'Poppins', cursive;
+    font-size: 68px;
     font-weight: 400;
-    line-height: 1.4;
-    font-family: 'Poppins', 'Helvetica Neue', sans-serif;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
-    opacity: 0.95;
-    margin: 0;
+    line-height: 1.1;
+    margin: 0 0 18px 0;
+    color: #f5d29a;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    letter-spacing: 0.5px;
 }
-/* Paginacao */
+/* Subtitulo branco, sans-serif */
+.coimbra-slider .swiper-slide-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    margin: 0;
+    letter-spacing: 1px;
+}
+/* Setas FINAS brancas (igual ao original) - sobrescreve Swiper default */
+.coimbra-slider .swiper-button-next,
+.coimbra-slider .swiper-button-prev {
+    color: #fff;
+    background: transparent;
+    width: 50px;
+    height: 80px;
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    z-index: 10;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+.coimbra-slider .swiper-button-next:hover,
+.coimbra-slider .swiper-button-prev:hover {
+    opacity: 1;
+}
+.coimbra-slider .swiper-button-next::after,
+.coimbra-slider .swiper-button-prev::after {
+    font-size: 32px;
+    font-weight: 300;
+    font-family: 'swiper-icons';
+}
+/* Traços verticais como indicadores (NAO dots) */
 .coimbra-slider .swiper-pagination {
     bottom: 30px !important;
     z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 .coimbra-slider .swiper-pagination-bullet {
     background: #fff;
     opacity: 0.5;
-    width: 12px;
-    height: 12px;
-    margin: 0 6px !important;
+    width: 3px;
+    height: 24px;
+    border-radius: 0;
+    margin: 0 4px !important;
     transition: all 0.3s;
+    display: inline-block;
 }
 .coimbra-slider .swiper-pagination-bullet-active {
     opacity: 1;
     background: #fff;
-    width: 36px;
-    border-radius: 6px;
-}
-/* Navegacao */
-.coimbra-slider .swiper-button-next,
-.coimbra-slider .swiper-button-prev {
-    color: #fff;
-    background: rgba(0,0,0,0.4);
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 10;
-    transition: background 0.3s;
-}
-.coimbra-slider .swiper-button-next:hover,
-.coimbra-slider .swiper-button-prev:hover {
-    background: rgba(0,0,0,0.7);
-}
-.coimbra-slider .swiper-button-next::after,
-.coimbra-slider .swiper-button-prev::after {
-    font-size: 22px;
-    font-weight: bold;
+    width: 3px;
+    height: 36px;
 }
 /* Responsivo */
 @media (max-width: 1024px) {
     .coimbra-slider .swiper-slide-title {
-        font-size: 42px;
+        font-size: 52px;
     }
     .coimbra-slider .swiper-slide-subtitle {
         font-size: 20px;
@@ -296,30 +304,25 @@ form input.display-none{display:none!important}
         height: 70vh;
         min-height: 350px;
     }
-    .coimbra-slider .swiper-slide-content {
-        left: 5%;
-        max-width: 90%;
-    }
     .coimbra-slider .swiper-slide-title {
-        font-size: 32px;
-        margin-bottom: 12px;
+        font-size: 38px;
     }
     .coimbra-slider .swiper-slide-subtitle {
         font-size: 16px;
     }
     .coimbra-slider .swiper-button-next,
     .coimbra-slider .swiper-button-prev {
-        width: 44px;
-        height: 44px;
+        width: 36px;
+        height: 60px;
     }
     .coimbra-slider .swiper-button-next::after,
     .coimbra-slider .swiper-button-prev::after {
-        font-size: 16px;
+        font-size: 24px;
     }
 }
 @media (max-width: 480px) {
     .coimbra-slider .swiper-slide-title {
-        font-size: 26px;
+        font-size: 30px;
     }
     .coimbra-slider .swiper-slide-subtitle {
         font-size: 14px;
