@@ -137,6 +137,103 @@ form input.display-none{display:none!important}
 
 <link rel='stylesheet' id='mfn-post-local-styles-2121790195625-css' href='/EspacoCoimbra/wp-content/uploads/betheme/css/post-212.css?ver=1790195625' media='all' />
 
+
+<!-- Swiper CSS replacement for RevSlider -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+.coimbra-slider {
+    width: 100%;
+    height: 900px;
+    max-height: 90vh;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+.coimbra-slider .swiper-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.coimbra-slider .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.coimbra-slider .swiper-slide-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    z-index: 2;
+    padding: 0 20px;
+    max-width: 80%;
+}
+.coimbra-slider .swiper-slide-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+.coimbra-slider .swiper-slide-subtitle {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+    font-family: 'Poppins', sans-serif;
+    opacity: 0.95;
+}
+.coimbra-slider .swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.6;
+    width: 12px;
+    height: 12px;
+}
+.coimbra-slider .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #fff;
+}
+.coimbra-slider .swiper-button-next,
+.coimbra-slider .swiper-button-prev {
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    backdrop-filter: blur(4px);
+}
+.coimbra-slider .swiper-button-next:after,
+.coimbra-slider .swiper-button-prev:after {
+    font-size: 20px;
+    font-weight: bold;
+}
+@media (max-width: 768px) {
+    .coimbra-slider {
+        height: 70vh;
+    }
+    .coimbra-slider .swiper-slide-title {
+        font-size: 28px;
+    }
+    .coimbra-slider .swiper-slide-subtitle {
+        font-size: 16px;
+    }
+}
+</style>
+
+<!-- AVISO: Configure o Formspree para receber os formulários -->
+<!-- 1. Crie conta em https://formspree.io -->
+<!-- 2. Crie um formulário novo -->
+<!-- 3. Confirme o email comercial@espacocoimbra.com.br -->
+<!-- 4. Copie o ID (ex: xpwagkqr) -->
+<!-- 5. Substitua YOUR_FORMSPREE_ID_HERE em todos os HTMLs -->
+<!-- 6. Faça commit e push -->
+
 </head>
 
 <body class="wp-singular page-template-default page page-id-212 wp-theme-betheme woocommerce-block-theme-has-button-styles template-slider  color-custom content-brightness-light input-brightness-light style-default button-animation-slide button-animation-slide-right layout-full-width no-content-padding header-classic sticky-header sticky-tb-color ab-hide menu-link-color menuo-no-borders subheader-both-center footer-copy-center responsive-overflow-x-mobile mobile-tb-center mobile-side-slide mobile-mini-mr-ll mobile-header-mini mobile-icon-user-ss mobile-icon-wishlist-ss mobile-icon-search-ss mobile-icon-wpml-ss mobile-icon-action-ss be-page-212 be-reg-275">
@@ -207,27 +304,26 @@ form input.display-none{display:none!important}
 </div>
 <div class="mfn-main-slider mfn-rev-slider">
 				<p class="rs-p-wp-fix"></p>
-				<sr7-module data-alias="rustico-1" data-id="4" id="SR7_4_1" class="rs-ov-hidden" data-version="6.7.14">
-					<sr7-adjuster></sr7-adjuster>
-					<sr7-content>
-						<sr7-slide id="SR7_4_1-12" data-key="12">
-							<sr7-bg id="SR7_4_1-12-10" class="sr7-layer"><noscript><img src="/EspacoCoimbra/wp-content/uploads/2024/07/DSC00323-scaled.jpg" alt="" title="DSC00323"></noscript></sr7-bg>
-							<sr7-txt id="SR7_4_1-12-1" class="sr7-layer">Espaço Coimbra Garden</sr7-txt>
-							<a id="SR7_4_1-12-3" class="sr7-layer" href="#" target="_self">IN</a>
-							<a id="SR7_4_1-12-4" class="sr7-layer" href="#" target="_self">FB</a>
-							<a id="SR7_4_1-12-6" class="sr7-layer" href="#" target="_self">TW</a>
-						</sr7-slide>
-						<sr7-slide id="SR7_4_1-17" data-key="17">
-						</sr7-slide>
-					</sr7-content>
-					<image_lists style="display:none">
-						<img data-src="/EspacoCoimbra/wp-content/uploads/2018/08/home_weddingdresses_slider_pic2.png" data-libid="23" title="home_weddingdresses_slider_pic2" width="0" height="0" data-dbsrc="L0VzcGFjb0NvaW1icmEvd3AtY29udGVudC91cGxvYWRzLzIwMTgvMDgvaG9tZV93ZWRkaW5nZHJlc3Nlc19zbGlkZXJfcGljMi5wbmc"/>
-						<img data-src="/EspacoCoimbra/wp-content/uploads/2024/07/DSC00323-scaled.jpg" data-libid="82" data-lib="medialibrary" title="DSC00323" width="0" height="0" data-dbsrc="L0VzcGFjb0NvaW1icmEvd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDcvRFNDMDAzMjMtc2NhbGVkLmpwZw"/>
-					</image_lists>
-				</sr7-module>
-				<script>
-					SR7.PMH ??={}; SR7.PMH["SR7_4_1"] = {cn:0,state:false,fn: function() { if (_tpt!==undefined && _tpt.prepareModuleHeight !== undefined) {  _tpt.prepareModuleHeight({id:"SR7_4_1",el:[900,900,768,960,720],type:'standard',shdw:'0',gh:[900,900,853,648,400],gw:[1080,1080,1024,778,480],vpt:['100px'],size:{fullWidth:false, fullHeight:false},mh:'0',onh:0,onw:0,bg:{color:'{"orig":"transparent","type":"solid","string":"transparent"}'},plType:'2',plColor:'#000000'});   SR7.PMH["SR7_4_1"].state=true;} else if((SR7.PMH["SR7_4_1"].cn++)<100)	setTimeout( SR7.PMH["SR7_4_1"].fn,19);}};SR7.PMH["SR7_4_1" ].fn();
-				</script>
+				<!-- Swiper replacement for RevSlider (id=garden-slider) -->
+<div class="swiper coimbra-slider" id="garden-slider">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img src="/EspacoCoimbra/wp-content/uploads/2024/08/DC1_3478.jpg" alt="" loading="eager">
+            <div class="swiper-slide-content"><div class="swiper-slide-title">O melhor da festa é esperar por ela!</div><div class="swiper-slide-subtitle">2 opções de espaço para realizar sonhos!</div></div>
+        </div>
+        <div class="swiper-slide">
+            <img src="/EspacoCoimbra/wp-content/uploads/2024/08/WhatsApp-Image-2024-07-30-at-13.47.56.jpeg" alt="" loading="eager">
+            <div class="swiper-slide-content"><div class="swiper-slide-title">Gastronomia Conceituada</div></div>
+        </div>
+        <div class="swiper-slide">
+            <img src="/EspacoCoimbra/wp-content/uploads/2024/08/RafaOrios-229.jpg" alt="" loading="eager">
+            <div class="swiper-slide-content"><div class="swiper-slide-title">Experiência e Credibilidade</div><div class="swiper-slide-subtitle">para dar todo suporte que um grande evento exige</div></div>
+        </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+</div>
 </div></header>
 	
 </div>
@@ -421,14 +517,15 @@ form input.display-none{display:none!important}
 " ><div class="mcb-column-inner mfn-module-wrapper mcb-column-inner-7j016pqqw mcb-item-cf7-inner">
 <div class="wpcf7 no-js" id="wpcf7-f116-p212-o1" lang="pt-BR" dir="ltr">
 <div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
-<form action="/EspacoCoimbra/espaco-coimbra-garden/#wpcf7-f116-p212-o1" method="post" class="wpcf7-form init" aria-label="Formulários de contato" novalidate="novalidate" data-status="init">
+<form action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE" method="post" class="wpcf7-form init" aria-label="Formulários de contato" novalidate="novalidate" data-status="init">
+<input type="hidden" name="_subject" value="Novo contato - Espaço Coimbra"><input type="hidden" name="_cc" value="comercial@espacocoimbra.com.br"><input type="hidden" name="_template" value="table">
 <div style="display: none;">
-<input type="hidden" name="_wpcf7" value="116" />
-<input type="hidden" name="_wpcf7_version" value="5.9.8" />
-<input type="hidden" name="_wpcf7_locale" value="pt_BR" />
-<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f116-p212-o1" />
-<input type="hidden" name="_wpcf7_container_post" value="212" />
-<input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+
+
+
+
+
+
 </div>
 <div class="form-row">
 	<div class="form-group half-width">
@@ -647,5 +744,41 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
   gtag('config', 'AW-16631747394');
 </script>
 
+
+<!-- Swiper JS init -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+(function() {
+    function initSwiper_garden_slider() {
+        if (typeof Swiper === 'undefined') {
+            setTimeout(initSwiper_garden_slider, 50);
+            return;
+        }
+        new Swiper('#garden-slider', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            speed: 1000,
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSwiper_garden_slider);
+    } else {
+        initSwiper_garden_slider();
+    }
+})();
+</script>
 </body>
 </html>
